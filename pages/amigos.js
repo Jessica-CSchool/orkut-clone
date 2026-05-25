@@ -2,22 +2,10 @@ import React from 'react';
 import Head from 'next/head';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
-import { createGlobalStyle } from 'styled-components';
 import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
-
-const OrkutLogoStyle = createGlobalStyle`
-  header img[src*="logo.svg"] { display: none !important; }
-  #orkut-logo-text {
-    background-color: #ffffff; padding: 7px 18px; border-radius: 50px;
-    display: inline-flex; align-items: center; justify-content: center; margin-right: 20px;
-    font-family: 'Century Gothic', sans-serif; font-weight: bold; font-size: 20px;
-    color: #ED2590; letter-spacing: -1.5px; cursor: pointer; text-transform: lowercase;
-  }
-  header > div { display: flex; align-items: center; }
-`;
 
 function ProfileSidebar(propriedades) {
   return (
@@ -37,32 +25,20 @@ export default function AmigosPage(props) {
   const usuarioAleatorio = props.githubUser;
   const personasFavoritas = ['juunegreiros', 'omariosouto', 'peas'];
 
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setTimeout(() => {
-        const containerMenu = document.querySelector('header > div');
-        if (containerMenu && !document.querySelector('#orkut-logo-text')) {
-          const novoLogoTexto = document.createElement('span');
-          novoLogoTexto.id = 'orkut-logo-text'; novoLogoTexto.innerText = 'orkut';
-          novoLogoTexto.onclick = () => { window.location.href = '/'; };
-          containerMenu.insertBefore(novoLogoTexto, containerMenu.firstChild);
-        }
-      }, 100);
-    }
-  }, []);
-
   return (
     <>
       <Head><title>Meus Amigos - Orkut</title></Head>
-      <OrkutLogoStyle />
+      
+      {/* O menu agora renderiza limpo, usando a logo única do AlurakutCommons */}
       <AlurakutMenu githubUser={usuarioAleatorio} />
+      
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
           <ProfileSidebar githubUser={usuarioAleatorio} />
         </div>
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea', gridColumnStart: '2', gridColumnEnd: '4' }}>
           <Box>
-            <h1 className="title" style={{ marginBottom: '20px' }}>Meus Amigos</h1>
+            <h1 className="title" style={{ marginBottom: '20px' }}>Meus Amigos ({personasFavoritas.length})</h1>
             <ProfileRelationsBoxWrapper>
               <ul>
                 {personasFavoritas.map((itemAtual) => (
@@ -89,7 +65,9 @@ export async function getServerSideProps(ctx) {
   const githubUser = decodedToken?.githubUser;
 
   if (!githubUser) {
-    return { redirect: { destination: '/login', permanent: false } };
+    ctx.res.writeHead(302, { Location: '/login' });
+    ctx.res.end();
+    return { props: {} };
   }
 
   return { props: { githubUser } };

@@ -17,15 +17,36 @@ function Link({ href, children, ...props }) {
 }
 
 // ================================================================================================================
-// Menu
+// Menu (TOTALMENTE BLINDADO CONTRA DUPLICADOS)
 // ================================================================================================================
 export function AlurakutMenu({ githubUser }) {
   const [isMenuOpen, setMenuState] = React.useState(false);
+
+  React.useEffect(() => {
+    // BLINDAGEM JAVASCRIPT: Remove cirurgicamente qualquer tag injetada com o ID antigo
+    if (typeof window !== 'undefined') {
+      const elementosFantasmas = document.querySelectorAll('#orkut-logo-text');
+      elementosFantasmas.forEach(el => el.remove());
+    }
+  }, []);
+
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
+      
+      {/* BLINDAGEM CSS ESTRITA: Oculta qualquer tentativa de injeção de texto ou logos duplicadas via CSS residual */}
+      <style dangerouslySetInnerHTML={{__html: `
+        header span#orkut-logo-text,
+        header a::after,
+        nav a::after,
+        .container a::after {
+          display: none !important;
+          content: "" !important;
+        }
+      `}} />
+
       <div className="container">
-        {/* MODIFICADO: Agora renderiza um contêiner de texto com a palavra "orkut" */}
-        <AlurakutMenu.Logo as="a" href="/">
+        {/* Usando div pura para passar 100% despercebido por seletores CSS de links de páginas antigas */}
+        <AlurakutMenu.Logo onClick={() => window.location.href = '/'} style={{ cursor: 'pointer' }}>
           <span>orkut</span>
         </AlurakutMenu.Logo>
 
@@ -164,7 +185,6 @@ AlurakutMenu.Wrapper = styled.header`
   }
 `;
 
-// MODIFICADO: Ajustado de tag 'img' para um 'div/a' estilizado em formato de pílula branca estável
 AlurakutMenu.Logo = styled.div`
   background-color: #ffffff;
   border-radius: 1000px;
