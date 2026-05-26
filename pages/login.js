@@ -4,7 +4,7 @@ import nookies from 'nookies';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [githubUser, setGithubUser] = React.useState('Jessica-Lira');
+  const [githubUser, setGithubUser] = React.useState('Jessica-CSchool');
 
   return (
     <main style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -57,6 +57,8 @@ export default function LoginScreen() {
             </p>
             <input
                 placeholder="Usuário"
+                //trocando placeholder para ver self-healing
+                //placeholder="User"
                 value={githubUser}
                 onChange={(evento) => {
                     setGithubUser(evento.target.value)
