@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Community {
+  id           String   @id @default(uuid())
+  title        String
+  imageUrl     String
+  creatorSlug  String   
+  dono         String   @default("Jessica-Lira")
+  idioma       String   @default("Português")
+  categoria    String   @default("Outros")
+  tipo         String   @default("Pública")
+  privacidade  String   @default("Aberta")
+  forum        String   @default("Não anônimo")
+  createdAt    DateTime @default(now())
+}
+
+model User {
+  id         Int    @id @default(autoincrement())
+  githubUser String @unique
+}

@@ -1,4 +1,3 @@
-// pages/fotos.js
 import React from 'react';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';

@@ -1,30 +1,65 @@
-import { SiteClient } from 'datocms-client';
+import { PrismaClient } from '@prisma/client';
 
-//BFF
+const prisma = new PrismaClient();
 
 export default async function recebedorDeRequests(request, response) {
-    if(request.method === 'POST') {
-        const TOKEN = '86c2420f6e73de81d32fb53409705d';
-        const client = new SiteClient(TOKEN);
-        
-        // Validar os dados, antes de sair cadastrando
-        const registroCriado = await client.items.create({
-            itemType: "968727", // ID do Model de "Communities" criado pelo Dato
-            ...request.body,
-            // title: "Comunidade de Teste",
-            // imageUrl: "https://github.com/jessica-lira.png",
-            // creatorSlug: "jessica-lira"
-        })
-        //console.log(registroCriado);
-    
-        response.json({
-            dados: 'Algum dado qualquer',
-            registroCriado: registroCriado,
-        })
-        return;
+    if (request.method === 'GET') {
+        try {
+            const comunidades = await prisma.community.findMany();
+            return response.json(comunidades);
+        } catch (error) {
+            return response.status(500).json({ error: 'Erro ao buscar comunidades.' });
+        }
     }
 
-    response.status(404).json({
-        message: 'Ainda sem método GET, mas tem método POST'
-    })
+    if (request.method === 'POST') {
+        try {
+            const { title, imageUrl, creatorSlug, idioma, categoria, tipo, privacidade, forum } = request.body;
+            if (!title) return response.status(400).json({ error: 'O título é obrigatório.' });
+
+            const registroCriado = await prisma.community.create({
+                data: {
+                    title,
+                    imageUrl: imageUrl || 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+                    creatorSlug: creatorSlug || 'jessica-lira',
+                    dono: creatorSlug || 'jessica-lira',
+                    idioma: idioma || 'Português',
+                    categoria: categoria || 'Outros',
+                    tipo: tipo || 'Pública',
+                    privacidade: privacidade || 'Aberta',
+                    forum: forum || 'Não anônimo',
+                },
+            });
+            return response.status(201).json({ registroCriado });
+        } catch (error) {
+            return response.status(500).json({ error: 'Erro ao salvar no banco de dados.' });
+        }
+    }
+
+    if (request.method === 'PUT') {
+        try {
+            const { id, title, imageUrl, idioma, categoria, tipo, privacidade, forum } = request.body;
+
+            const registroAtualizado = await prisma.community.update({
+                where: { id: String(id) },
+                data: { title, imageUrl, idioma, categoria, tipo, privacidade, forum },
+            });
+
+            return response.json({ registroAtualizado });
+        } catch (error) {
+            return response.status(500).json({ error: 'Erro ao atualizar a comunidade.' });
+        }
+    }
+
+    if (request.method === 'DELETE') {
+        try {
+            const { id } = request.body;
+            await prisma.community.delete({ where: { id: String(id) } });
+            return response.json({ message: 'Comunidade excluída com sucesso!' });
+        } catch (error) {
+            return response.status(500).json({ error: 'Erro ao excluir a comunidade.' });
+        }
+    }
+
+    return response.status(405).json({ message: 'Método não permitido.' });
 }

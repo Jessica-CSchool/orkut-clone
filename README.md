@@ -62,14 +62,14 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
   cd orkut
   ```
 
-3. **Configure o Provedor OpenSSL Legado (Essencial para evitar falhas de inicialização em versões recentes do Node)**
-  ```bash
-  set NODE_OPTIONS=--openssl-legacy-provider
-  ```
-
-4. **Instale as dependências**
+3. **Instale as dependências**
   ```bash
   npm install 
+  ```
+
+4. **Inicicalizar o db**
+  ```bash
+  npx prisma init --datasource-provider sqlite
   ```
 
 5. **Execute o servidor de desenvolvimento**
@@ -79,3 +79,6 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
   
 6. **Abra o seu navegador e acesse a URL**
 <h5>http://localhost:3000</h5>
+
+7. **Se desejar verificar o db**
+<h5>[npx prisma studio](http://localhost:51212)</h5>
