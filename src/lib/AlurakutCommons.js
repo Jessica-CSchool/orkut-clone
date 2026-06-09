@@ -243,14 +243,19 @@ export function AlurakutMenuProfileSidebar({ githubUser }) {
   )
 }
 export function AlurakutProfileSidebarMenuDefault() {
-  // Inicializa o STATUS lendo a memória do navegador, se estiver vazio assume 'Disponível'
-  const [statusPresenca, setStatusPresenca] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      const salvo = localStorage.getItem('orkut_status_presenca');
-      return salvo || 'Disponível';
-    }
-    return 'Disponível';
-  });
+
+  const [status, setStatus] = React.useState('Disponível');
+
+  React.useEffect(() => {
+    const salvo = localStorage.getItem('orkut-status');
+    if (salvo) setStatus(salvo);
+  }, []);
+
+  const handleStatusChange = (e) => {
+    const novoStatus = e.target.value;
+    setStatus(novoStatus);
+    localStorage.setItem('orkut-status', novoStatus);
+  };
 
   const coresStatus = {
     'Disponível': '#468817', // Verde
@@ -259,20 +264,13 @@ export function AlurakutProfileSidebarMenuDefault() {
     'Invisível': '#999999'   // Cinza
   };
 
-  // Salva o novo valor no LocalStorage no momento do clique
-  function handleStatusChange(e) {
-    const novoStatus = e.target.value;
-    setStatusPresenca(novoStatus);
-    localStorage.setItem('orkut_status_presenca', novoStatus);
-  }
-
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       {/* Interface Visual da Bolinha + Caixa Dropdown estilizada */}
       <div className="status-container-lateral-global">
-        <span className="status-bolinha-cor-global" style={{ backgroundColor: coresStatus[statusPresenca] }}></span>
+        <span className="status-bolinha-cor-global" style={{ backgroundColor: coresStatus[status] }}></span>
         <select 
-          value={statusPresenca} 
+          value={status} 
           onChange={handleStatusChange}
           className="select-status-lateral-global"
         >

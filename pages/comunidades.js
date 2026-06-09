@@ -3,6 +3,7 @@ import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
 import { AlurakutMenu, OrkutProfileSidebar } from '../src/lib/AlurakutCommons'; // Importa a barra corrigida do Commons
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import Head from 'next/head';
 
 export default function ComunidadesPage() {
   const githubUser = 'Jessica-Lira'; 

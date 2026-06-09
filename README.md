@@ -37,7 +37,6 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [React](https://reactjs.org) (com Hooks e gerenciamento de estado global/local)
 - [Next.js](https://nextjs.org/) (Roteamento de páginas e `getServerSideProps` para validação de sessão)
 - [Styled Components](https://styled-components.com/) (Estilização isolada e componentizada)
-- [DatoCMS](https://www.datocms.com/) (Persistência e consumo de dados via GraphQL)
 - [Nookies](https://github.com/maticzav/nookies) & [JSONWebToken](https://github.com/auth0/node-jsonwebtoken) (Gerenciamento de autenticação via Cookies)
 
 ## 🚀 Como executar 
