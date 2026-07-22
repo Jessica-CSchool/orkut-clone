@@ -182,8 +182,9 @@ export function AlurakutMenu({ githubUser }) {
           ))}
         </nav>
 
+        {/* Aqui é o link de logout que usamos no Selenium e Haelenium */}
         <nav>
-          <a href={`/logout`}>Sair</a>
+          <a id="logout-link" href={`/logout`}>Sair</a>
           <div>
             <input placeholder="Pesquisar no Orkut" />
           </div>
@@ -283,15 +284,16 @@ export function AlurakutProfileSidebarMenuDefault() {
 
       <hr className="divisor-status" />
 
+      {/* Aqui é a parte de redirecionar que usamos no Selenium e Haelenium */}
       <nav>
-        <a href="/perfil"><img src={`${BASE_URL}/icons/user.svg`} alt="Perfil" />perfil</a>
-        <a href="/recados"><img src={`${BASE_URL}/icons/book.svg`} alt="Recados" />recados</a>
-        <a href="/fotos"><img src={`${BASE_URL}/icons/camera.svg`} alt="Álbum" />álbum</a>
-        <a href="/videos"><img src={`${BASE_URL}/icons/video-camera.svg`} alt="Vídeos" />vídeos</a>
-        <a href="/depoimentos"><img src={`${BASE_URL}/icons/sun.svg`} alt="Depoimentos" />depoimentos</a>
-        <a href="/comunidades"><img src={`${BASE_URL}/icons/plus.svg`} alt="Comunidades" />comunidades</a>
-        <a href="/configuracoes"><img src={`${BASE_URL}/icons/configurations.svg`} alt="Configurações" />configurações</a>
-        <a href="/logout"><img src={`${BASE_URL}/icons/logout.svg`} alt="Sair" />sair</a>
+        <a name="perfil-link" href="/perfil"><img src={`${BASE_URL}/icons/user.svg`} alt="Perfil" />perfil</a>
+        <a name="recados-link" href="/recados"><img src={`${BASE_URL}/icons/book.svg`} alt="Recados" />recados</a>
+        <a name="fotos-link" href="/fotos"><img src={`${BASE_URL}/icons/camera.svg`} alt="Álbum" />álbum</a>
+        <a name="videos-link" href="/videos"><img src={`${BASE_URL}/icons/video-camera.svg`} alt="Vídeos" />vídeos</a>
+        <a name="depoimentos-link" href="/depoimentos"><img src={`${BASE_URL}/icons/sun.svg`} alt="Depoimentos" />depoimentos</a>
+        <a name="comunidades-link" href="/comunidades"><img src={`${BASE_URL}/icons/plus.svg`} alt="Comunidades" />comunidades</a>
+        <a name="configuracoes-link" href="/configuracoes">⚙️ configurações</a>
+        <a name="logout-link" href="/logout"><img src={`${BASE_URL}/icons/logout.svg`} alt="Sair" />sair</a>
       </nav>
     </AlurakutProfileSidebarMenuDefault.Wrapper>
   )

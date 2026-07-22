@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx) {
     path: '/',
   });
 
-  // Redireciona o utilizador de volta para o ecrã de login
+  // Redireciona o utilizador de volta para tela de login
   return {
     redirect: {
       destination: '/login',
