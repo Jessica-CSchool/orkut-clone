@@ -271,6 +271,7 @@ export function AlurakutProfileSidebarMenuDefault() {
       <div className="status-container-lateral-global">
         <span className="status-bolinha-cor-global" style={{ backgroundColor: coresStatus[status] }}></span>
         <select 
+        /*name="status"*/ name="statusSelect"
           value={status} 
           onChange={handleStatusChange}
           className="select-status-lateral-global"
@@ -291,6 +292,7 @@ export function AlurakutProfileSidebarMenuDefault() {
         <a name="fotos-link" href="/fotos"><img src={`${BASE_URL}/icons/camera.svg`} alt="Álbum" />álbum</a>
         <a name="videos-link" href="/videos"><img src={`${BASE_URL}/icons/video-camera.svg`} alt="Vídeos" />vídeos</a>
         <a name="depoimentos-link" href="/depoimentos"><img src={`${BASE_URL}/icons/sun.svg`} alt="Depoimentos" />depoimentos</a>
+        {/*TESTANDO SELF HEALING link-test alterando o texto de comunidades*/}
         <a name="comunidades-link" href="/comunidades"><img src={`${BASE_URL}/icons/plus.svg`} alt="Comunidades" />comunidades</a>
         <a name="configuracoes-link" href="/configuracoes">⚙️ configurações</a>
         <a name="logout-link" href="/logout"><img src={`${BASE_URL}/icons/logout.svg`} alt="Sair" />sair</a>

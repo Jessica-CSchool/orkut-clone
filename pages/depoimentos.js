@@ -175,11 +175,14 @@ export default function DepoimentosPage(props) {
                   required
                 />
               </div>
-              <button type="submit" className="btn-enviar-depo" style={{ background: depoimentoEmEdicao ? '#5CB85C' : '' }}>
+              <button type="submit" 
+              className="btn-enviar-depo" /*className="btn-depo"*/ 
+              style={{ background: depoimentoEmEdicao ? '#5CB85C' : '' }}>
                 {depoimentoEmEdicao ? "Salvar Alteração" : "Enviar Depoimento"}
               </button>
               {depoimentoEmEdicao && (
-                <button type="button" className="btn-enviar-depo btn-canc-edit" onClick={() => { setDepoimentoEmEdicao(null); document.getElementById('txt-depoimento-input').value = ''; }}>
+                <button type="button"  
+                  onClick={() => { setDepoimentoEmEdicao(null); document.getElementById('txt-depoimento-input').value = ''; }}>
                   Cancelar
                 </button>
               )}
@@ -216,7 +219,7 @@ export default function DepoimentosPage(props) {
                         <p className="depoimento-texto">"{item.message}"</p>
                         
                         <div className="depoimento-links-acoes">
-                          <span className="txt-link-recusar" onClick={() => handleDeletar(item.id)}>Deletar do meu perfil</span>
+                          <span className="txt-link-recusar" /*className="btn-recusar-depo"*/ onClick={() => handleDeletar(item.id)}>Deletar do meu perfil</span>
                         </div>
                       </div>
                     </div>

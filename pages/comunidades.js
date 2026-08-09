@@ -167,7 +167,8 @@ export default function ComunidadesPage() {
                     </div>
                     <div className="campo-completo">
                       <label className="label-custom">URL da Imagem de Capa</label>
-                      <input
+                      {/*alterando de input para textarea para testar o self healing*/}
+                      < input
                         placeholder="Coloque uma URL para usarmos de capa"
                         name="image"
                         defaultValue={comunidadeEmEdicao ? comunidadeEmEdicao.imageUrl : ''}
